@@ -3,9 +3,11 @@ package com.mozes.backend;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages = "com.mozes.backend.model")
+@EnableJpaRepositories(basePackages = {"com.mozes.backend.repositoryes"})
+@EntityScan(basePackages = {"com.mozes.backend.models"})
 public class BackendApplication {
 
     public static void main(String[] args) {

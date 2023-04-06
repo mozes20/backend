@@ -1,5 +1,6 @@
-package com.mozes.backend.model;
+package com.mozes.backend.models;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -17,6 +18,8 @@ public class User {
     private long id;
     @Column
     private boolean active;
+
+    @NonNull
     @Column
     private String address;
     @Column
@@ -29,17 +32,23 @@ public class User {
     private Date deleted_at;
     @Column
     private String delete_flag;
+
+    @NonNull
     @Column
     private String email;
     @Column
     private String email_token;
     @Column
     private Date last_login;
+
+    @NonNull
     @Column
     private String name;
     @Column
     private boolean next_login_change_pwd;
-    @Column
+
+    @NonNull
+    @Column(length = 255)
     private String password;
     @Column
     private boolean password_expired;
@@ -57,6 +66,8 @@ public class User {
     private Date updated_at;
     @Column
     private String user_type;
+
+    @NonNull
     @Column
     private String username;
     @Column
@@ -68,4 +79,7 @@ public class User {
     @Column
     private int user_by_deleted_id;
 
+    public User() {
+
+    }
 }
