@@ -35,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // a tokennel való autentikációhoz nem szükséges session-t kezelni
                 .and()
+                .cors()
+                .and()
                 .csrf()
                 .disable(); // a POST kérésekhez nem szükséges token validálás
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

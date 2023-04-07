@@ -13,13 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
+    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
     @PostMapping()
     public ResponseEntity<String> createUser(@RequestBody UserDto user) {
         try {
@@ -30,6 +31,7 @@ public class UserController {
         }
     }
 
+    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
     @GetMapping()
     public ResponseEntity<List<User>> getUsers(){
         try {
@@ -40,6 +42,7 @@ public class UserController {
         }
     }
 
+    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delUser(@PathVariable Long id){
         try {
@@ -53,6 +56,7 @@ public class UserController {
         }
     }
 
+    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id,@RequestBody User user){
         try {
@@ -66,6 +70,7 @@ public class UserController {
         }
     }
 
+    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
     @GetMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id){
         try {
