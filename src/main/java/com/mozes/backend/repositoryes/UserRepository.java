@@ -1,5 +1,6 @@
 package com.mozes.backend.repositoryes;
 
+import com.mozes.backend.dto.UserResponsDto;
 import com.mozes.backend.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

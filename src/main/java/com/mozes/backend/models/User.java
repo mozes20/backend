@@ -26,7 +26,7 @@ public class User {
     private boolean created;
     @Column
     private Date created_at;
-    @Column
+    @Column()
     private boolean deleted;
     @Column
     private Date deleted_at;

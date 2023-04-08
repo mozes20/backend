@@ -1,15 +1,19 @@
 package com.mozes.backend.services;
 
 import com.mozes.backend.dto.UserDto;
+import com.mozes.backend.dto.UserResponsDto;
 import com.mozes.backend.dto.UserRoleDto;
 import com.mozes.backend.models.User;
 import com.mozes.backend.models.UserRoles;
 import com.mozes.backend.repositoryes.UserRepository;
 import com.mozes.backend.repositoryes.UserRolesRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,14 +42,21 @@ public class UserService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+        if(userRepository.findByUsername(user.getUsername()) != null){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "A felhasználó már létezik.");
+        }
+
         userRepository.save(user);
 
         UserRoles userRole = new UserRoles(userRoleDto.getRoles(), user);
         userRolesRepository.save(userRole);
     }
 
-    public List<User> getUsers() {
-        return userRepository.findAllByDeletedIsFalse();
+    public List<UserResponsDto> getUsers() {
+        ModelMapper modelMapper = new ModelMapper();
+        return userRepository.findAllByDeletedIsFalse().stream()
+                .map(user -> modelMapper.map(user, UserResponsDto.class))
+                .toList();
     }
 
     public void softDeleteUser(long id) {
